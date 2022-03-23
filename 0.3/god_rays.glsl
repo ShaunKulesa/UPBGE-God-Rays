@@ -1,6 +1,9 @@
 uniform sampler2D bgl_RenderedTexture;
 uniform sampler2D bgl_DepthTexture;
 
+in vec4 bgl_TexCoord;
+out vec4 fragColor;
+
 //uniform float avgL;
 
 const float dens = 0.6; // Density
@@ -30,8 +33,8 @@ void main()
     
     vec2 lightScreenPos = vec2(xPos,yPos);
 
-    vec2 deltaTexCoord = vec2(gl_TexCoord[0]) - lightScreenPos;
-	vec2 texCoo = gl_TexCoord[0].st;
+    vec2 deltaTexCoord = vec2(bgl_TexCoord) - lightScreenPos;
+	vec2 texCoo = bgl_TexCoord.st;
 	deltaTexCoord *= 1.0 / float(raySamples) * dens;
 	float illumDecay = 1.0;
 
@@ -50,8 +53,8 @@ void main()
         illumDecay *= dec;
     }
     
-    vec2 texcoord = vec2(gl_TexCoord[0]);
+    vec2 texcoord = bgl_TexCoord.xy;
  
-    gl_FragColor = texture2D(bgl_RenderedTexture, texcoord) + (origin*exp);
+    fragColor = texture2D(bgl_RenderedTexture, texcoord) + (origin*exp);
 
 }
