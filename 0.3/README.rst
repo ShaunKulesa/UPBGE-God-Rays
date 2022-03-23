@@ -1,1 +1,1 @@
-God Ray Filter for UPBGE 3.0+ only.
+God Ray Filter for UPBGE 0.3 only.
